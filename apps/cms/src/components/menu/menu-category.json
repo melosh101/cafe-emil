@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_menu_menu_categories",
+  "info": {
+    "displayName": "MenuCategory",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "contents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.menu-item",
+      "required": true
+    }
+  }
+}
