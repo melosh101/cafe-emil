@@ -10,11 +10,10 @@
     "name": {
       "type": "string"
     },
-    "contents": {
+    "subCategory": {
       "type": "component",
       "repeatable": true,
-      "component": "menu.menu-item",
-      "required": true
+      "component": "menu.sub-category"
     }
   }
 }

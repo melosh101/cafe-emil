@@ -16,5 +16,13 @@
   "workspaces": [
     "apps/*",
     "packages/*"
+  ],
+  "trustedDependencies": [
+    "@swc/core",
+    "better-sqlite3",
+    "core-js-pure",
+    "esbuild",
+    "msw",
+    "sharp"
   ]
 }

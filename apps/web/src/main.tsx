@@ -10,22 +10,26 @@ import { Layout } from './layout'
 import "./index.css";
 import Resever from './pages/resever'
 import Menu from './pages/menu'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const root = document.getElementById('root');
+const queryClient = new QueryClient()
 
-if(!root) {
+if (!root) {
   throw new Error('No root element found')
 }
 
 createRoot(root).render(
   <StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<LandingPage/>}/>
-          <Route path="/resever" element={<Resever/>}/>
-          <Route path="/menu" element={<Menu/>}/>
-        </Route>
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<LandingPage />} />
+            <Route path="/resever" element={<Resever />} />
+            <Route path="/menu" element={<Menu />} />
+          </Route>
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   </StrictMode>
 )

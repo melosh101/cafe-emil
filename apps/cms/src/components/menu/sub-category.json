@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_menu_sub_categories",
+  "info": {
+    "displayName": "SubCategory",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "contents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.menu-item"
+    }
+  }
+}

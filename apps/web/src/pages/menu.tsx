@@ -1,48 +1,72 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { useQuery } from "@tanstack/react-query";
+import { ReactElement } from "react";
 export default function Menu() {
+    const { isPending, error, data } = useQuery({
+        refetchOnMount: false,
+        queryKey: ["menu"],
+        queryFn: async () => {
+            const response = await fetch('http://localhost:1337/api/menu?populate[0]=categories&populate[1]=categories.subCategory&populate[2]=categories.subCategory.contents&populate[3]=categories.subCategory.contents.thumbnail')
+            return response.json();
+        },
+    });
+
+    if (isPending) {
+        return <div>Loading...</div>
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>
+    }
+
+    if (data.error) {
+        return <div>Error: {data.error.message}</div>
+    }
+    console.log(data)
+
+    var TabList: ReactElement[] = []
+    var TabContent: ReactElement[] = [];
+
+    data.data.categories.forEach((category: any) => {
+        TabList.push(<TabsTrigger value={category.name} key={category.id}>{category.name}</TabsTrigger>)
+        const TabContents: ReactElement[] = []
+        category.subCategory.forEach((subCategory: any) => {
+            TabContents.push(
+                <div className="" key={subCategory.id}>
+                    <h2>{subCategory.name}</h2>
+                    <p>{subCategory.description}</p>
+                    {subCategory.contents.map((content: any) => {
+                        return (
+
+                            <div className="flex mx-4 text-balance *">
+                                {content.thumbnail && <img loading="lazy" src={`http://localhost:1337${content.thumbnail.formats.small.url}`} className="object-cover w-1/3 h-32 my-auto rounded-md" />}
+                                <div>
+                                <h2 className="text-xl font-bold font-courier-prime">{content.name}</h2>
+                                <p className="text-sm">{content.description}</p>
+                                <p className="mt-auto">{content.price} kr.</p>
+                                </div>
+                            </div>
+                        )
+                    })}
+                    </div>
+            )
+        })
+        TabContent.push(<TabsContent value={category.name} key={category.id} className="grid lg:grid-cols-3 gap-2 lg:max-w-[80%] mx-auto">{TabContents}</TabsContent>)
+
+    })
     return (
-        <main className="flex flex-col">
+
+        <main className="flex flex-col items-center">
             <h1 className="mx-auto mt-8 text-3xl font-bold font-courier-prime">Vores menu</h1>
-            <Tabs defaultValue="spisekort" className="mx-auto mt-8">
-                <TabsList className="[&>*]:bg-slate-200 [&>*]:rounded-none [&>*]:border [&>*]:border-black">
-                    <TabsTrigger value="spisekort">Spisekort</TabsTrigger>
-                    <TabsTrigger value="drikkelse">Drikkelse</TabsTrigger>
-                    <TabsTrigger value="vin">Vin</TabsTrigger>
+            <Tabs defaultValue={data.data.categories[0].name} className="flex flex-col mx-auto mt-8">
+                <TabsList className="[&>*]:bg-slate-200 [&>*]:rounded-none [&>*]:border [&>*]:border-black mx-auto">
+                    {TabList}
                 </TabsList>
-                <TabsContent value="spisekort" className="mx-auto">
-                    <h2 className="text-2xl font-bold">Spisekort</h2>
-                    <ul>
-                        <li>Forret: 50 kr.</li>
-                        <li>Hovedret: 100 kr.</li>
-                        <li>Dessert: 50 kr.</li>
-                    </ul>
-                </TabsContent>
+                {TabContent}
+
+
             </Tabs>
         </main>
     )
 }
 
-async function GenerateMenu() {
-    const menu = {
-        category: "spisekort",
-        items: [
-            {
-                name: "Forret",
-                price: 50,
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi id, fermentum tellus."
-            },
-            {
-                name: "Hovedret",
-                price: 100,
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi id, fermentum tellus."
-            },
-            {
-                name: "Dessert",
-                price: 50,
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi id, fermentum tellus."
-            }
-        ]
-    }
-
-}

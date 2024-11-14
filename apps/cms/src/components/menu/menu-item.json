@@ -17,14 +17,20 @@
       "type": "string"
     },
     "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "price": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
     }
   }
 }
