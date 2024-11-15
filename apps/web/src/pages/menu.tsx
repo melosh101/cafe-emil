@@ -32,13 +32,14 @@ export default function Menu() {
         const TabContents: ReactElement[] = []
         category.subCategory.forEach((subCategory: any) => {
             TabContents.push(
-                <div className="" key={subCategory.id}>
-                    <h2>{subCategory.name}</h2>
+                <div key={subCategory.id} className="mx-4">
+                    <h2 className="text-2xl font-bold font-courier-prime">{subCategory.name}</h2>
                     <p>{subCategory.description}</p>
+                    <div className="grid gap-2 mt-4 md:grid-cols-2 lg:grid-cols-3">
                     {subCategory.contents.map((content: any) => {
                         return (
 
-                            <div className="flex mx-4 text-balance *">
+                            <div className="flex gap-4 text-balance *">
                                 {content.thumbnail && <img loading="lazy" src={import.meta.env.VITE_CMS_URL + content.thumbnail.formats.small.url} className="object-cover w-1/3 h-32 my-auto rounded-md" />}
                                 <div>
                                 <h2 className="text-xl font-bold font-courier-prime">{content.name}</h2>
@@ -49,9 +50,10 @@ export default function Menu() {
                         )
                     })}
                     </div>
+                    </div>
             )
         })
-        TabContent.push(<TabsContent value={category.name} key={category.id} className="grid lg:grid-cols-3 gap-2 lg:max-w-[80%] mx-auto">{TabContents}</TabsContent>)
+        TabContent.push(<TabsContent value={category.name} key={category.id} className="flex flex-col gap-4 lg:max-w-[80%] mx-auto h-fit">{TabContents}</TabsContent>)
 
     })
     return (
