@@ -4,12 +4,12 @@ export const LandingPage = () => {
     return (
         <main className="flex flex-col flex-grow gap-4 m-4 md:flex-row">
             {/* resever */}
-            <Link to="/resever" className="lg:bg-[url('/resever.png')] bg-[url('/resever_mobile.png')] flex-grow flex shadow-md shadow-slate-600 rounded-md min-h-64">
+            <Link to="/resever" className="lg:bg-[url('/resever.png')] bg-[url('/resever_mobile.png')] flex-grow flex shadow-md shadow-slate-600 rounded-md min-h-64 bg-cover">
                 <h2 className="mx-auto mt-auto mb-12 text-4xl font-bold text-center font-courier-prime text-neutral-100">Resever et bord</h2>
             </Link>
             {/* menu */}
             {/* resever */}
-            <Link to="/menu" className="lg:bg-[url('/menu.png')] bg-[url('/menu_mobile.png')] flex-grow flex shadow-md shadow-slate-600 rounded-md min-h-64">
+            <Link to="/menu" className="lg:bg-[url('/menu.png')] bg-[url('/menu_mobile.png')] flex-grow flex shadow-md shadow-slate-600 rounded-md min-h-64 bg-cover">
                 <h2 className="mx-auto mt-auto mb-12 text-4xl font-bold text-center font-courier-prime text-neutral-100">Se vores Menu</h2>
             </Link>
             {/* Info kort */}
