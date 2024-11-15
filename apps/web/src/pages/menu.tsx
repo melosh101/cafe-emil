@@ -6,7 +6,7 @@ export default function Menu() {
         refetchOnMount: false,
         queryKey: ["menu"],
         queryFn: async () => {
-            const response = await fetch('http://localhost:1337/api/menu?populate[0]=categories&populate[1]=categories.subCategory&populate[2]=categories.subCategory.contents&populate[3]=categories.subCategory.contents.thumbnail')
+            const response = await fetch(import.meta.env.VITE_CMS_URL + '/api/menu?populate[0]=categories&populate[1]=categories.subCategory&populate[2]=categories.subCategory.contents&populate[3]=categories.subCategory.contents.thumbnail')
             return response.json();
         },
     });
@@ -39,7 +39,7 @@ export default function Menu() {
                         return (
 
                             <div className="flex mx-4 text-balance *">
-                                {content.thumbnail && <img loading="lazy" src={`http://localhost:1337${content.thumbnail.formats.small.url}`} className="object-cover w-1/3 h-32 my-auto rounded-md" />}
+                                {content.thumbnail && <img loading="lazy" src={import.meta.env.VITE_CMS_URL + content.thumbnail.formats.small.url} className="object-cover w-1/3 h-32 my-auto rounded-md" />}
                                 <div>
                                 <h2 className="text-xl font-bold font-courier-prime">{content.name}</h2>
                                 <p className="text-sm">{content.description}</p>
